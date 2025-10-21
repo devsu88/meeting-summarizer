@@ -2,6 +2,10 @@
 
 An **interactive web app** with **Gradio** that allows you to upload a meeting transcript or audio/video file and automatically generates a **complete summary**, **topics** list, and **keywords**.
 
+## 🌐 Live Demo
+
+🚀 **[Try the app on Hugging Face Spaces](https://huggingface.co/spaces/devsu/meeting-summarizer)**
+
 ## 🚀 Features
 
 - 📁 **Multiple uploads**: Supports `.txt`, `.pdf`, `.docx`, `.mp3`, `.wav`, `.m4a`, `.flac`, `.ogg` files
