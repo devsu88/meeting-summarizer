@@ -1,188 +1,185 @@
 # 🎯 Meeting Summarizer
 
-Una **web app interattiva** con **Gradio** che permette di caricare una trascrizione o un file audio/video di un meeting e genera automaticamente una **sintesi completa**, un elenco di **topic** e **parole chiave**.
+An **interactive web app** with **Gradio** that allows you to upload a meeting transcript or audio/video file and automatically generates a **complete summary**, **topics** list, and **keywords**.
 
-## 🚀 Funzionalità
+## 🚀 Features
 
-- 📁 **Upload multipli**: Supporta file `.txt`, `.pdf`, `.docx`, `.mp3`, `.wav`, `.m4a`, `.flac`, `.ogg`
-- 🎤 **Trascrizione automatica**: Usa `whisper-tiny` per trascrivere file audio
-- 🤖 **Analisi intelligente**: GPT-4o-mini per estrarre sintesi, topic e keywords
-- 📄 **PDF professionale**: Genera documenti PDF ben formattati
-- 💾 **Persistenza dati**: Salvataggio su Hugging Face Datasets
-- 🌐 **Deploy facile**: Pronto per Hugging Face Spaces
+- 📁 **Multiple uploads**: Supports `.txt`, `.pdf`, `.docx`, `.mp3`, `.wav`, `.m4a`, `.flac`, `.ogg` files
+- 🎤 **Automatic transcription**: Uses `whisper-tiny` to transcribe audio files
+- 🤖 **Intelligent analysis**: GPT-4o-mini to extract summaries, topics and keywords
+- 📄 **Professional PDF**: Generates well-formatted PDF documents
+- 💾 **Data persistence**: Save to Hugging Face Datasets
+- 🌐 **Easy deployment**: Ready for Hugging Face Spaces
 
-## 🛠️ Tecnologie
+## 🛠️ Technologies
 
-- **Framework UI**: [Gradio](https://gradio.app/)
-- **LLM**: `gpt-4o-mini` tramite API OpenAI
-- **Trascrizione**: `openai/whisper-tiny` (ottimizzato per CPU)
-- **Estrazione testo**: `pypdf2` e `python-docx`
-- **Generazione PDF**: `reportlab`
-- **Persistenza**: Hugging Face Datasets
-- **Audio processing**: `librosa` per elaborazione audio
-- **Accelerazione**: `accelerate` per ottimizzazioni
-- **Linguaggio**: Python 3.10
+- **UI Framework**: [Gradio](https://gradio.app/)
+- **LLM**: `gpt-4o-mini` via OpenAI API
+- **Transcription**: `openai/whisper-tiny` (CPU optimized)
+- **Text extraction**: `pypdf2` and `python-docx`
+- **PDF generation**: `reportlab`
+- **Persistence**: Hugging Face Datasets
+- **Audio processing**: `librosa` for audio processing
+- **Acceleration**: `accelerate` for optimizations
+- **Language**: Python 3.10
 
-## 📦 Installazione
+## 📦 Installation
 
-### Locale
+### Local
 
 ```bash
-# Clona il repository
+# Clone the repository
 git clone https://github.com/your-username/meeting-summarizer.git
 cd meeting-summarizer
 
-# Installa dipendenze
+# Install dependencies
 pip install -r requirements.txt
 
-# Avvia l'applicazione
+# Start the application
 python app.py
 ```
 
 ### Hugging Face Spaces
 
-1. **Fork** questo repository
-2. Crea un nuovo **Space** su [Hugging Face](https://huggingface.co/spaces)
-3. Seleziona **Gradio** come SDK
-4. Collega il repository forked
-5. Configura le variabili d'ambiente (vedi sezione Configurazione)
+1. **Fork** this repository
+2. Create a new **Space** on [Hugging Face](https://huggingface.co/spaces)
+3. Select **Gradio** as SDK
+4. Link the forked repository
+5. Configure environment variables (see Configuration section)
 
-## ⚙️ Configurazione
+## ⚙️ Configuration
 
-### Variabili d'Ambiente
+### Environment Variables
 
-Per il deploy su Hugging Face Spaces, configura:
+For deployment on Hugging Face Spaces, configure:
 
 ```bash
-# Obbligatorio
+# Required
 OPENAI_API_KEY=your_openai_api_key_here
 
-# Opzionale (per persistenza dati)
+# Optional (for data persistence)
 HF_TOKEN=your_huggingface_token_here
 ```
 
-### Configurazione Locale
+### Local Configuration
 
-Crea un file `.env` nella root del progetto:
+Environment variables can be set directly in the system or through the web application interface.
 
-```bash
-OPENAI_API_KEY=your_openai_api_key_here
-HF_TOKEN=your_huggingface_token_here
-```
+## 🎯 Usage
 
-## 🎯 Utilizzo
+1. **Upload a meeting file** (audio or document)
+2. **Enter OpenAI API key** (required)
+3. **Enter HF token** (optional, to save data)
+4. **Click "Analyze Meeting"**
+5. **View results** and download PDF
 
-1. **Carica un file** di meeting (audio o documento)
-2. **Inserisci la chiave API OpenAI** (richiesta)
-3. **Inserisci il token HF** (opzionale, per salvare i dati)
-4. **Clicca "Analizza Meeting"**
-5. **Visualizza i risultati** e scarica il PDF
+### Supported Formats
 
-### Formati Supportati
-
-#### 🎵 File Audio
+#### 🎵 Audio Files
 - MP3, WAV, M4A, FLAC, OGG
-- Trascrizione automatica con Whisper
+- Automatic transcription with Whisper
 
-#### 📄 Documenti
+#### 📄 Documents
 - PDF, DOCX, TXT
-- Estrazione testo automatica
+- Automatic text extraction
 
-## 📊 Struttura Dati
+## 📊 Data Structure
 
-I meeting vengono salvati su Hugging Face Datasets con questa struttura:
+Meetings are saved to Hugging Face Datasets with this structure:
 
 ```json
 {
   "id": "uuid",
-  "file_name": "nome_file_originale",
+  "file_name": "original_file_name",
   "meeting_date": "YYYY-MM-DD",
-  "transcription": "testo completo del meeting",
-  "summary": "testo della sintesi",
-  "topics": ["tema1", "tema2", ...],
-  "keywords": ["parola1", "parola2", ...],
+  "transcription": "complete meeting text",
+  "summary": "summary text",
+  "topics": ["topic1", "topic2", ...],
+  "keywords": ["keyword1", "keyword2", ...],
   "created_at": "timestamp"
 }
 ```
 
-## 🏗️ Architettura
+## 🏗️ Architecture
 
 ```
 meeting-summarizer/
-├── app.py                 # Applicazione Gradio principale
-├── requirements.txt       # Dipendenze Python
-├── README.md             # Documentazione
-├── .gitignore            # File da ignorare
+├── app.py                 # Main Gradio application
+├── requirements.txt       # Python dependencies
+├── README.md             # Documentation
+├── .gitignore            # Files to ignore
+├── data/                 # Example files and data
+│   └── sample_meeting_transcript.txt
 └── utils/
     ├── __init__.py
-    ├── text_extraction.py   # Estrazione testo da PDF/DOCX/TXT
-    ├── transcription.py     # Trascrizione audio con Whisper
-    ├── llm_analysis.py       # Analisi con GPT-4o-mini
-    ├── pdf_generator.py     # Generazione PDF output
-    └── data_persistence.py # Salvataggio su HF Datasets
+    ├── text_extraction.py   # Text extraction from PDF/DOCX/TXT
+    ├── transcription.py     # Audio transcription with Whisper
+    ├── llm_analysis.py       # Analysis with GPT-4o-mini
+    ├── pdf_generator.py     # PDF output generation
+    └── data_persistence.py # Save to HF Datasets
 ```
 
-## 🔧 Sviluppo
+## 🔧 Development
 
-### Setup Ambiente di Sviluppo
+### Development Environment Setup
 
 ```bash
-# Crea ambiente virtuale
+# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# oppure
+# or
 venv\Scripts\activate     # Windows
 
-# Installa dipendenze
+# Install dependencies
 pip install -r requirements.txt
 
-# Avvia in modalità sviluppo
+# Start in development mode
 python app.py
 ```
 
-### Test
+### Testing
 
 ```bash
-# Test estrazione testo
+# Test text extraction
 python -c "from utils.text_extraction import extract_text; print(extract_text('test.pdf'))"
 
-# Test trascrizione
+# Test transcription
 python -c "from utils.transcription import transcribe_audio; print(transcribe_audio('test.mp3'))"
 ```
 
-## 📝 Note Tecniche
+## 📝 Technical Notes
 
-- **Whisper**: Usa `openai/whisper-tiny` per velocità su CPU
-- **Lingua**: Prompt ottimizzati per italiano
-- **Persistenza**: HF Datasets garantisce storage permanente
-- **Sicurezza**: API keys gestite tramite variabili d'ambiente
-- **Compatibilità**: Python 3.10, ottimizzato per CPU only
+- **Whisper**: Uses `openai/whisper-tiny` for CPU speed
+- **Language**: Prompts optimized for Italian
+- **Persistence**: HF Datasets ensures permanent storage
+- **Security**: API keys managed via environment variables
+- **Compatibility**: Python 3.10, optimized for CPU only
 
-## 🤝 Contributi
+## 🤝 Contributing
 
-1. Fork il progetto
-2. Crea un branch per la tua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit le modifiche (`git commit -m 'Add some AmazingFeature'`)
-4. Push al branch (`git push origin feature/AmazingFeature`)
-5. Apri una Pull Request
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 Licenza
+## 📄 License
 
-Distribuito sotto licenza MIT. Vedi `LICENSE` per maggiori informazioni.
+Distributed under the MIT License. See `LICENSE` for more information.
 
-## 🆘 Supporto
+## 🆘 Support
 
 - 📧 **Email**: support@meeting-summarizer.com
 - 🐛 **Issues**: [GitHub Issues](https://github.com/your-username/meeting-summarizer/issues)
-- 📖 **Documentazione**: [Wiki](https://github.com/your-username/meeting-summarizer/wiki)
+- 📖 **Documentation**: [Wiki](https://github.com/your-username/meeting-summarizer/wiki)
 
-## 🙏 Ringraziamenti
+## 🙏 Acknowledgments
 
-- [Gradio](https://gradio.app/) per il framework UI
-- [OpenAI](https://openai.com/) per GPT-4o-mini e Whisper
-- [Hugging Face](https://huggingface.co/) per i modelli e l'hosting
-- [ReportLab](https://www.reportlab.com/) per la generazione PDF
+- [Gradio](https://gradio.app/) for the UI framework
+- [OpenAI](https://openai.com/) for GPT-4o-mini and Whisper
+- [Hugging Face](https://huggingface.co/) for models and hosting
+- [ReportLab](https://www.reportlab.com/) for PDF generation
 
 ---
 
-**Sviluppato con ❤️ per semplificare l'analisi dei meeting**
+**Developed with ❤️ to simplify meeting analysis**
